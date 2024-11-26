@@ -1,14 +1,14 @@
-import { cn, formatDate } from "@/lib/utils";
-import { EyeIcon } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Author, Startup } from "@/sanity/types";
-import { Skeleton } from "@/components/ui/skeleton";
+import { cn, formatDate } from '@/lib/utils';
+import { EyeIcon } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { Author, Select, Startup } from '@/sanity/types';
+import { Skeleton } from '@/components/ui/skeleton';
 
-export type StartupTypeCard = Omit<Startup, "author"> & { author?: Author };
+export type StartupTypeCard = Omit<Startup, 'author'> & { author?: Author };
 
-const StartupCard = ({ post }: { post: StartupTypeCard }) => {
+const StartupCard = ({ post }: { post: Select }) => {
   const {
     _createdAt,
     views,
@@ -53,7 +53,9 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
       <Link href={`/startup/${_id}`}>
         <p className="startup-card_desc">{description}</p>
 
-        <img src={image} alt="placeholder" className="startup-card_img" />
+        {image && (
+          <Image src={image} alt="placeholder" className="startup-card_img" />
+        )}
       </Link>
 
       <div className="flex-between gap-3 mt-5">
@@ -71,7 +73,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
 export const StartupCardSkeleton = () => (
   <>
     {[0, 1, 2, 3, 4].map((index: number) => (
-      <li key={cn("skeleton", index)}>
+      <li key={cn('skeleton', index)}>
         <Skeleton className="startup-card_skeleton" />
       </li>
     ))}

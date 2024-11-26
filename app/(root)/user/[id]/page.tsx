@@ -1,11 +1,11 @@
-import { auth } from "@/auth";
-import { client } from "@/sanity/lib/client";
-import { AUTHOR_BY_ID_QUERY } from "@/sanity/lib/queries";
-import { notFound } from "next/navigation";
-import Image from "next/image";
-import UserStartups from "@/components/UserStartups";
-import { Suspense } from "react";
-import { StartupCardSkeleton } from "@/components/StartupCard";
+import { auth } from '@/auth';
+import { client } from '@/sanity/lib/client';
+import { AUTHOR_BY_ID_QUERY } from '@/sanity/lib/queries';
+import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import UserStartups from '@/components/UserStartups';
+import { Suspense } from 'react';
+import { StartupCardSkeleton } from '@/components/StartupCard';
 
 export const experimental_ppr = true;
 
@@ -26,13 +26,15 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             </h3>
           </div>
 
-          <Image
-            src={user.image}
-            alt={user.name}
-            width={220}
-            height={220}
-            className="profile_image"
-          />
+          {user.image && (
+            <Image
+              src={user.image}
+              alt={user.name || ''}
+              width={220}
+              height={220}
+              className="profile_image"
+            />
+          )}
 
           <p className="text-30-extrabold mt-7 text-center">
             @{user?.username}
@@ -42,7 +44,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
         <div className="flex-1 flex flex-col gap-5 lg:-mt-5">
           <p className="text-30-bold">
-            {session?.id === id ? "Your" : "All"} Startups
+            {session?.id === id ? 'Your' : 'All'} Startups
           </p>
           <ul className="card_grid-sm">
             <Suspense fallback={<StartupCardSkeleton />}>
